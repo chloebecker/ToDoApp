@@ -10,6 +10,7 @@ import UIKit
 
 var categories = [Categories]()
 var tasks = [Tasks]()
+var sectionName = ""
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -22,7 +23,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
 //    var sectionData: [Int: [String]] = [:]
     
-    var sectionData: [String: [String]] = [:]
+    //dictionary values is an array of arrays
+    var sectionData: [String: [[String]] ] = [:]
     
     var rect: UIView?
     
@@ -43,6 +45,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.didReceiveMemoryWarning()
     }
     
+    
+    //
+    //  HELPER FUNCTIONS
+    //
+    
+    // !!! need to account for empty entities/attributes!
     func populateSectionData() {
         do {
             categories = try context.fetch(Categories.fetchRequest())
@@ -56,30 +64,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("Error connecting/fetching tasks.")
         }
         
-        for index in categories {
-            sectionData[index] = []
+        for index in categories {//0...categories.count {
+            sectionData[index.catName!] = []
         }
         
         let numSections = sectionData.count
         
-        for i in 0...numSections-1 {
-            //create task array with task name and date due
-            var name = tasks[i].taskName
-            var date = tasks[i].taskDate
-            var dateStr = dateToStr(date: date as! Date)
-            var taskArray : [String] = [name!, dateStr]
-            
-            //find the correct key (task) to assign value
-            var keyCount = 0
-            for key in sectionData {
-                if (i == keyCount){
-                    key.key.append(taskArray)
-                    //!!! what if categories have the same name? Can't have duplicates!
+        if(numSections != 0) {
+            for i in 0...numSections-1 {
+                //create task array with task name and date due
+                let name = tasks[i].taskName
+                let date = tasks[i].taskDate
+                let dateStr = dateToStr(date: date as! Date)
+                let taskArray : [String] = [name!, dateStr]
+                
+                //find the correct key (task) to assign value (if key number = section number)
+                //^sections ordered based on order of key/val pairs in dictionary
+                //stops after it's gone through each key/val pair in sectionData
+                var keyIndex = 0
+                for key in sectionData {
+                    if (i == keyIndex){
+                        var newValue = key.value
+                        newValue.append(taskArray)
+                        sectionData[key.key] = newValue
+                        //!!! what if categories have the same name? Can't have duplicates!
+                        break
+                    }
+                    keyIndex += 1
                 }
+                
             }
-            
         }
-        
         
     }
     
@@ -93,25 +108,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return dateString
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int {
-            var numRows = 10
-            //loop through dict until key count = section
-            var keyCount = 0
-            for key in sectionData {
-                if (section == keyCount){
-                    numRows = (key.value.count)
-                } else {
-                    print("Error getting number of sections.")
-                }
-                keyCount += 1
-            }
-            return
+    
+    //
+    //  SECTION functions
+    //
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return categories.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int)
         -> String? {
-            return categories[section]
+            return categories[section].catName
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -123,8 +130,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        //add to screen!
 //        self.view.addSubview(rect!)
         
+        //??? fix this? don't remember what it does
         let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell\(section+1)")
-        cell?.textLabel?.text = sections[section]
+        cell?.textLabel?.text = categories[section].catName
         
 //        //add shape to cell!
 //        cell?.addSubview(rect!)
@@ -132,8 +140,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+
+    //
+    //  CELL functions
+    //
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+        -> Int {
+            var numRows = 10
+            //loop through dict until key count = section
+            var keyCount = 0
+            //!!! is there a way to simplify this? It's used in several functions...
+            // ^maybe a global var called "Section"?
+            // ^maybe sectionData dictionary needs to have INTs instead of STRINGs as the key
+            for key in sectionData {
+                if (section == keyCount){
+                    numRows = (key.value.count)
+                    //??? is this not great code to have?
+                    sectionName = key.key
+                    break
+                } else {
+                    print("Error getting number of rows.")
+                }
+                keyCount += 1
+            }
+            //!!! need a better way to make sure the correct numRows is returned?
+            return numRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
@@ -144,7 +175,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell = UITableViewCell(style: .default, reuseIdentifier: "cell");
             }
             
-            cell!.textLabel?.text = sectionData[indexPath.section]![indexPath.row]
+            // !!!!! fix this! regular keyIndex won't work properly...
+            var taskName = "Empty"
+            let key = sectionName as Dictionary.Key
+            let taskArray = sectionData[key]
+            taskName = (taskArray?[indexPath.row][0])!
+
+            cell!.textLabel?.text = taskName
             
             return cell!
     }
