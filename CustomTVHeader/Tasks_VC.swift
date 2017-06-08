@@ -72,11 +72,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if(numSections != 0) {
             for i in 0...numSections-1 {
-                //create task array with task name and date due
+                //create task array with task name, date due, and complete bool
                 let name = tasks[i].taskName
                 let date = tasks[i].taskDate
+                let complete = tasks[i].taskComplete
+                
                 let dateStr = dateToStr(date: date as! Date)
-                let taskArray : [String] = [name!, dateStr]
+                let completeStr = String(complete)
+                let taskArray : [String] = [name!, dateStr, completeStr]
                 
                 //find the correct key (task) to assign value (if key number = section number)
                 //^sections ordered based on order of key/val pairs in dictionary
@@ -131,7 +134,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        self.view.addSubview(rect!)
         
         //??? fix this? don't remember what it does
-        let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell\(section+1)")
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell\(section+1)")
+        //^using this for now...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "headerCell1")
         cell?.textLabel?.text = categories[section].catName
         
 //        //add shape to cell!

@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54AE29291EE9CF4800F354E0 /* Add_Task_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54AE29281EE9CF4800F354E0 /* Add_Task_VC.swift */; };
+		54AE292B1EE9CF8400F354E0 /* Add_Category_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54AE292A1EE9CF8400F354E0 /* Add_Category_VC.swift */; };
 		54E127AF1ED66A8400666E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E127AE1ED66A8400666E68 /* AppDelegate.swift */; };
-		54E127B11ED66A8400666E68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E127B01ED66A8400666E68 /* ViewController.swift */; };
+		54E127B11ED66A8400666E68 /* Tasks_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E127B01ED66A8400666E68 /* Tasks_VC.swift */; };
 		54E127B41ED66A8400666E68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54E127B21ED66A8400666E68 /* Main.storyboard */; };
 		54E127B71ED66A8400666E68 /* CustomTVHeader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 54E127B51ED66A8400666E68 /* CustomTVHeader.xcdatamodeld */; };
 		54E127B91ED66A8400666E68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54E127B81ED66A8400666E68 /* Assets.xcassets */; };
@@ -16,9 +18,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		54AE29281EE9CF4800F354E0 /* Add_Task_VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Add_Task_VC.swift; sourceTree = "<group>"; };
+		54AE292A1EE9CF8400F354E0 /* Add_Category_VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Add_Category_VC.swift; sourceTree = "<group>"; };
 		54E127AB1ED66A8400666E68 /* CustomTVHeader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomTVHeader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54E127AE1ED66A8400666E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		54E127B01ED66A8400666E68 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		54E127B01ED66A8400666E68 /* Tasks_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks_VC.swift; sourceTree = "<group>"; };
 		54E127B31ED66A8400666E68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		54E127B61ED66A8400666E68 /* CustomTVHeader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CustomTVHeader.xcdatamodel; sourceTree = "<group>"; };
 		54E127B81ED66A8400666E68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,8 +61,10 @@
 			isa = PBXGroup;
 			children = (
 				54E127AE1ED66A8400666E68 /* AppDelegate.swift */,
-				54E127B01ED66A8400666E68 /* ViewController.swift */,
 				54E127B21ED66A8400666E68 /* Main.storyboard */,
+				54E127B01ED66A8400666E68 /* Tasks_VC.swift */,
+				54AE29281EE9CF4800F354E0 /* Add_Task_VC.swift */,
+				54AE292A1EE9CF8400F354E0 /* Add_Category_VC.swift */,
 				54E127B81ED66A8400666E68 /* Assets.xcassets */,
 				54E127BA1ED66A8400666E68 /* LaunchScreen.storyboard */,
 				54E127BD1ED66A8400666E68 /* Info.plist */,
@@ -140,7 +146,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54E127B11ED66A8400666E68 /* ViewController.swift in Sources */,
+				54AE292B1EE9CF8400F354E0 /* Add_Category_VC.swift in Sources */,
+				54E127B11ED66A8400666E68 /* Tasks_VC.swift in Sources */,
+				54AE29291EE9CF4800F354E0 /* Add_Task_VC.swift in Sources */,
 				54E127AF1ED66A8400666E68 /* AppDelegate.swift in Sources */,
 				54E127B71ED66A8400666E68 /* CustomTVHeader.xcdatamodeld in Sources */,
 			);
@@ -306,6 +314,7 @@
 				54E127C21ED66A8400666E68 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
