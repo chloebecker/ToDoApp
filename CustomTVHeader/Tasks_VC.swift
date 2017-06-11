@@ -71,31 +71,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let numSections = sectionData.count
         
         if(numSections != 0) {
-            for i in 0...numSections-1 {
-                //create task array with task name, date due, and complete bool
-                let name = tasks[i].taskName
-                let date = tasks[i].taskDate
-                let complete = tasks[i].taskComplete
+            
+            if tasks.count != 0 {
+                for i in 0...numSections-1 {
                 
-                let dateStr = dateToStr(date: date as! Date)
-                let completeStr = String(complete)
-                let taskArray : [String] = [name!, dateStr, completeStr]
-                
-                //find the correct key (task) to assign value (if key number = section number)
-                //^sections ordered based on order of key/val pairs in dictionary
-                //stops after it's gone through each key/val pair in sectionData
-                var keyIndex = 0
-                for key in sectionData {
-                    if (i == keyIndex){
-                        var newValue = key.value
-                        newValue.append(taskArray)
-                        sectionData[key.key] = newValue
-                        //!!! what if categories have the same name? Can't have duplicates!
-                        break
+                    //create task array with task name, date due, and complete bool
+                    let name = tasks[i].taskName
+                    let date = tasks[i].taskDate
+                    let complete = tasks[i].taskComplete
+                    
+                    let dateStr = dateToStr(date: date as! Date)
+                    let completeStr = String(complete)
+                    let taskArray : [String] = [name!, dateStr, completeStr]
+                    
+                    //find the correct key (task) to assign value (if key number = section number)
+                    //^sections ordered based on order of key/val pairs in dictionary
+                    //stops after it's gone through each key/val pair in sectionData
+                    var keyIndex = 0
+                    for key in sectionData {
+                        if (i == keyIndex){
+                            var newValue = key.value
+                            newValue.append(taskArray)
+                            sectionData[key.key] = newValue
+                            //!!! what if categories have the same name? Can't have duplicates!
+                            break
+                        }
+                        keyIndex += 1
                     }
-                    keyIndex += 1
                 }
-                
             }
         }
         
