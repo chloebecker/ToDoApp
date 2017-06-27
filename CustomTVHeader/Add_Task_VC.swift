@@ -8,17 +8,16 @@
 
 import UIKit
 
-class Add_Task_ViewController: UIViewController {
+class Add_Task_ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        pickSection.delegate = self
+        pickSection.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -44,11 +43,14 @@ class Add_Task_ViewController: UIViewController {
             
             print("Error: could not add task because text box is empty")
         }
-        
-        let date : NSDate? = nil
+
+        let date = Date()
+        //let calendar = Calendar.current
+        //let hour = calendar.component(.hour, from: date)
+        //let minutes = calendar.component(.minute, from: date)
         
         if(!emptyField) {
-            addNewTask(taskName: txtTask.text!, taskDue:  date!, category: categoryName, complete: false)
+            // do stuff
         }
         
         txtTask.text = ""
@@ -57,47 +59,30 @@ class Add_Task_ViewController: UIViewController {
     
     
     //
+    // Category Picker Functions
+    //
+    func numberOfComponents (in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "temp"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 4
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let name = "temp"
+        return name
+    }
+    
+    
+    //
     // Helper Functions
     //
-    
-    func addNewTask (taskName: String, taskDue: NSDate, category: String, complete: Bool)
-    {
-        //links to table Accounts from table "context"
-        //newAccount will be a new row in the table
-        let newTask = Tasks (context: context)
-        
-        newTask.taskName = taskName
-        //newTask.taskDate = taskDue
-        //filler...
-        newTask.taskDate = taskDue
-        newTask.taskCat = category
-        newTask.taskComplete = complete
-        
-        //save in database
-        appDelegate.saveContext()
-        
-        //print what's in the database!!
-        printTasks()
-        
-        let alertController = UIAlertController(title: "Task Saved", message: "Now available in task list", preferredStyle: UIAlertControllerStyle.alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func printTasks() {
-        do {
-            tasks = try context.fetch(Tasks.fetchRequest())
-            // each is every row in this case
-            for each in tasks {
-                // use ! to unwrap text and remove "optional()" from the print statement
-                print("name: \(each.taskName!) \n date: \(each.taskDate!)\n category: \(each.taskCat!) \n complete: \(each.taskComplete) \n\n")
-            }
-        } catch {
-            print("Error connecting/fetching.")
-        }
-    }
+
     override var prefersStatusBarHidden: Bool {
         return true
     }

@@ -24,7 +24,6 @@ class Add_Category_VC: UIViewController {
     //
     // Outlets
     //
-
     @IBOutlet weak var txtCategory: UITextField!
     
     @IBAction func btnAddCategory(_ sender: Any) {
@@ -42,8 +41,7 @@ class Add_Category_VC: UIViewController {
         }
         
         if(!emptyField) {
-            
-            addCategory(category: txtCategory.text!)
+           //do stuff
         }
         
         txtCategory.text = ""
@@ -53,17 +51,8 @@ class Add_Category_VC: UIViewController {
     //
     // Helper Functions
     //
-    
-    func addCategory (category: String)
-    {
-        //links to table Accounts from table "context"
-        //newAccount will be a new row in the table
-        let newCategory = Categories(context: context)
-        
-        newCategory.catName = category
-        
-        //save in database
-        appDelegate.saveContext()
+    func addCategory (category: String) {
+        //do stuff
         
         let alertController = UIAlertController(title: "Category Saved!", message: " ", preferredStyle: UIAlertControllerStyle.alert)
         
